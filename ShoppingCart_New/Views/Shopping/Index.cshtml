@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ShoppingCart_New.ViewModels.ShoppingViewModel>
+@{
+    ViewBag.Title = "Products";
+}
+
+<div class="container">
+    <h2 class="text-center">Product List</h2>
+
+    @foreach (var item in Model)
+    {
+        using (Html.BeginForm("AddToCart", "Shopping", FormMethod.Post))
+        {
+            <input type="hidden" name="ItemId" value="@item.ItemId"/>
+            <div class="col-md-4" style="border:2px solid black">
+                <div class="text-center" style="border-bottom:2px solid maroon">
+                    <h3>@item.ItemName</h3>
+                </div>
+
+                <div class="col-md-8">
+                    <img src="@Url.Content(item.ImagePath)" width="150px" height="150px" />
+                </div>
+                <div class="col-md-4" style="text-align:left">
+                    <b>@item.Description</b>
+                </div>
+
+                <div class="col-md-8" style="font-size:18px;border-top:2px solid maroon;padding:2px">
+                    <b>@item.ItemPrice.ToString("#,##0.00,INR")</b>
+                </div>
+                <div class="col-md-4" style="text-align:right;margin-bottom:10px; border-top:2px solid maroon;padding:2px">
+                <input type="submit"value="Add to cart" class="btn btn-primary"/>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@section scripts{
+
+    @if (Session["CartItems"] != null)
+    {
+        <script>
+
+            $(document).ready(function () {
+                $("cartNo").text("cart(" + Session["CartCounter"] + ")");
+            });
+        </script>
+    }
+}

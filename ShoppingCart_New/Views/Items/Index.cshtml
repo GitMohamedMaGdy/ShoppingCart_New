@@ -1,0 +1,102 @@
+﻿@model ShoppingCart_New.ViewModels.ItemViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+
+<div class="container">
+    <form action="Index" method="post" enctype="multipart/form-data">
+        <div class="col-md-4">
+            <div class="form-group">
+                Category
+                @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.CategoryListItems, "Value", "Text"),
+                 new { @class = "form-control",@id= "CategoryId" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                Item Name
+                @Html.TextBoxFor(model => model.ItemName, new { @class = "form-control" ,@id="ItemName"})
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                Item Code
+                @Html.TextBoxFor(model => model.ItemCode, new { @class = "form-control" ,@id="ItemCode"})
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                Description
+                @Html.TextBoxFor(model => model.Description, new { @class = "form-control",@id = "Description" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                Item Price
+                @Html.TextBoxFor(model => model.ItemPrice, new { @class = "form-control" ,@id= "ItemPrice" })
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                Image
+                @Html.TextBoxFor(model => model.ItemImage, new { type = "file", @class = "form-control" ,@id= "ItemImage" })
+            </div>
+        </div>
+
+        <div class="text-center">
+            <input type="submit" value="save Item" name="save" class="btn btn-primary" />
+            &nbsp;
+            <input type="button" value="Reset" name="Reset" class="btn btn-danger" id="btnReset" />
+        </div>
+    </form>
+
+</div>
+
+@section scripts {
+
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                alert("@ViewBag.Message");
+                resetData();
+
+            });
+
+        </script>
+         
+    }
+    
+
+    <script>
+        $(document).ready(function () {
+            $("#btnReset").click(function () {
+                resetData();
+            });
+        });
+
+        
+        function resetData()
+        {
+            $("#CategoryId").val("1");
+            $("#ItemName").val("");
+            $("#ItemCode").val("");
+            $("#Description").val("");
+            $("#ItemPrice").val("");
+            $("#ItemImage").val("");
+        }
+    </script>
+
+
+}
+
+
